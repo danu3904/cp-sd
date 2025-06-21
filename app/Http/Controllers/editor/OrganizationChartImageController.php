@@ -31,6 +31,18 @@ class OrganizationChartImageController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', // Maks 2MB, tambahkan webp
         ]);
 
+        $messages = [
+            'title.required' => 'Judul bagan organisasi tidak boleh kosong.',
+            'title.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+            'description.max' => 'Deskripsi terlalu panjang, maksimal 2000 karakter.',
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar yang diizinkan hanya: JPG, PNG, atau WEBP.',
+            'image.max' => 'Ukuran gambar tidak boleh melebihi 2MB.',
+        ];
+
+        // Lakukan validasi dengan pesan kustom
+        $validatedData = $request->validate($request, $messages);
+
         // Ambil data gambar struktur organisasi yang pertama (atau satu-satunya entri)
         $chartImage = OrganizationChartImage::first();
 

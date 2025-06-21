@@ -16,14 +16,14 @@
 
     {{-- Pesan Validasi Error --}}
     @if ($errors->any())
-        <div class="alert alert-danger shadow-sm rounded-3">
-            <h5 class="mb-2">Terjadi kesalahan:</h5>
             <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>• {{ $error }}</li>
-                @endforeach
+                @if ($errors->any())
+                    <div class="alert alert-danger shadow-sm rounded-3">
+                        <h5 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Terjadi Kesalahan Validasi</h5>
+                        <p>Harap periksa kembali isian Anda pada kolom yang ditandai merah di bawah.</p>
+                    </div>
+                @endif
             </ul>
-        </div>
     @endif
 
     <div class="card shadow-sm p-4 rounded-3 bg-light">
@@ -46,6 +46,11 @@
                 <label for="image" class="form-label fw-bold">Unggah Gambar Bagan Organisasi</label>
                 <input type="file" name="image" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,image/svg,image/webp" onchange="previewImage(event)">
                 <small class="form-text text-muted">Hanya file gambar (JPG, PNG, GIF, SVG, WEBP). Maksimal 2MB. Gambar ini akan menggantikan gambar yang sudah ada.</small>
+                                @error('image')
+                    <div class="invalid-feedback d-block"> {{-- 'd-block' diperlukan karena input file tidak bisa menampilkan feedback secara default --}}
+                        {{ $message }}
+                    </div>
+                @enderror
                 <div class="mt-2">
                     @if($chartImage->image_path)
                         <p class="mb-1">Gambar saat ini:</p>

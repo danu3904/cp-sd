@@ -27,9 +27,11 @@ class ActivityController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // 'icon_class' => 'nullable|string|max:100', // HAPUS/KOMENTARI VALIDASI INI
             'content' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'image.image' => 'File harus berupa gambar (jpeg, png, dll).',
         ]);
 
         // Hapus 'icon_class' dari data yang diambil

@@ -89,14 +89,18 @@
                     <div class="col-md-6">
                         <div class="card shadow-sm border-0 h-100">
                             @if (isset($heroImage) && $heroImage->image_path)
-                                <img src="{{ asset('storage/' . $heroImage->image_path) }}" alt="Gambar Header Sekolah"
-                                     class="img-fluid rounded"
-                                     style="height: 100%; width: 100%; object-fit: cover;">
-                            @else
-                                <div class="d-flex align-items-center justify-content-center h-100 bg-secondary text-white rounded">
-                                    <p class="text-center m-0 p-4">Belum ada gambar header diunggah.</p>
-                                </div>
-                            @endif
+                            <div class="position-relative w-100 h-100 rounded overflow-hidden">
+                                <img src="{{ asset('storage/' . $heroImage->image_path) }}" 
+                                    alt="Gambar Header Sekolah"
+                                    class="position-absolute w-100 h-100"
+                                    style="top: 0; left: 0; object-fit: cover;">
+                            </div>
+                        @else
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-secondary text-white rounded">
+                                <p class="text-center m-0 p-4">Belum ada gambar header diunggah.</p>
+                            </div>
+                        @endif
+
                         </div>
                     </div>
 

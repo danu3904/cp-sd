@@ -105,18 +105,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ingin keluar sekarang?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ingin logout sekarang?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Pilih 'Keluar' jika Anda ingin mengakhiri sesi saat ini.</div>
+                <div class="modal-body">Pilih 'Logout' jika Anda ingin mengakhiri sesi saat ini.</div>
                 <div class="modal-footer d-flex gap-2">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 
                     <form action="{{ route('editor.logout') }}" method="POST" id="logout-form">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Keluar</button>
+                        <button type="submit" class="btn btn-primary">Logout</button>
                     </form>
                 </div>                
         </div>

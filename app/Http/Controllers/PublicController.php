@@ -83,7 +83,7 @@ class PublicController extends Controller
             });
         }
 
-        $allNewsItems = $query->orderBy('created_at', 'desc')->paginate(5);
+        $allNewsItems = $query->orderBy('created_at', 'desc')->paginate(6); // Menggunakan 6 item per halaman
 
         // Sertakan parameter pencarian agar pagination mempertahankan query
         $allNewsItems->appends($request->only('q'));
@@ -112,7 +112,7 @@ class PublicController extends Controller
     }
 
     // Mengambil hasil dengan pagination
-    $allActivityItems = $query->orderBy('created_at', 'desc')->paginate(5);
+    $allActivityItems = $query->orderBy('created_at', 'desc')->paginate(6);
 
     // Menyisipkan parameter pencarian ke pagination
     $allActivityItems->appends($request->only('q'));

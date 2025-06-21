@@ -7,3 +7,5 @@
     <link href="{{asset('template_admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    

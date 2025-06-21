@@ -24,7 +24,8 @@
                 <a class="text-white mb-2" href="{{ route('activities.all') }}" class="dropdown-item"><i class="fa fa-angle-right mr-2"></i>Kegiatan</a>
                 <a class="text-white mb-2" href="{{ route('sejarah') }}"><i class="fa fa-angle-right mr-2"></i>Sejarah</a>
                 <a class="text-white mb-2" href="{{ route('visimisi') }}"><i class="fa fa-angle-right mr-2"></i>Visi & Misi</a>
-                <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Galeri</a>
+                <a class="text-white mb-2" href="{{ route('galeri')}}"><i class="fa fa-angle-right mr-2"></i>Galeri</a>
+                <a class="text-white mb-2" href="{{ route('announcements.all')}}"><i class="fa fa-angle-right mr-2"></i>Pengumuman</a>
             </div>
         </div>
         <div class="col-lg-5 col-md-6 mb-5">
@@ -64,10 +65,14 @@
                         referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-            <div class="d-flex justify-content-start mt-4">
-                <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                     style="width: 38px; height: 38px;" href="https://youtube.com/@sdn05taman99?si=Tb9pYzkilYSHkOZi"><i class="fab fa-youtube"></i></a>
-            </div>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                    style="width: 38px; height: 38px;"
+                    href="https://youtube.com/@sdn05taman99?si=Tb9pYzkilYSHkOZi"
+                    target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
         </div>
     </div>
     <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">

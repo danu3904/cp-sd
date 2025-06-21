@@ -36,7 +36,6 @@
     });
 
     // ======== ROUTE UNTUK EDITOR (AUTH WAJIB) ========
-    // PASTIKAN BLOK INI TIDAK ADA KESALAHAN PADA KURUNG KURAWALNYA { }
     Route::prefix('editor')->middleware('auth')->name('editor.')->group(function () {
 
         // Dashboard dan profil
@@ -60,13 +59,6 @@
         Route::controller(HeroImageController::class)->group(function () {
             Route::get('/hero-image', 'index')->name('hero-image');
             Route::post('/hero-image/store', 'uploadHeroImage')->name('hero-image.store');
-        });
-
-        // Kontak
-        Route::controller(ContactController::class)->group(function () {
-            Route::get('/contact', 'index')->name('contact');
-            Route::get('/contact/data', 'getData')->name('contact.data');
-            Route::delete('/contact/delete', 'deleteData')->name('contact.delete');
         });
 
         // Berita

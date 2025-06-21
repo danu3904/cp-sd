@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{{asset('template_fe/img/favicon.ico')}}" rel="icon">
+    <link href="{{asset('favicon.ico')}}" rel="icon">
 
     @include('includes.fe.style')
     @yield('style')

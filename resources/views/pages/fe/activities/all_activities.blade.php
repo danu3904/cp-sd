@@ -18,8 +18,8 @@
                         name="q" 
                         value="{{ request('q') }}" 
                         class="form-control form-control-sm" 
-                        placeholder="Cari pengumuman..."
-                        aria-label="Cari pengumuman"
+                        placeholder="Cari kegiatan..."
+                        aria-label="Cari kegiatan"
                     >
 
                     @if(request()->filled('q'))

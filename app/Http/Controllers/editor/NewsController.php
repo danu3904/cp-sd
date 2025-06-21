@@ -25,7 +25,7 @@ class NewsController extends Controller
         }
 
         // Menggunakan latest() untuk urutan terbaru dan paginate() untuk pagination
-        $news = $query->latest()->paginate(10); // Sesuaikan jumlah item per halaman jika perlu
+        $news = $query->latest()->paginate(6); // Sesuaikan jumlah item per halaman jika perlu
 
         // Pastikan view ini ada: resources/views/pages/editor/news/index.blade.php
         return view('pages.editor.news.index', compact('news'));
@@ -50,7 +50,10 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:500', // Validasi untuk deskripsi singkat
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'image.image' => 'File harus berupa gambar (jpeg, png, dll).',
         ]);
 
         $dataToStore = [

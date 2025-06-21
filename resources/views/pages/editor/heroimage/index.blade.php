@@ -1,12 +1,12 @@
 @extends('layouts.editor')
 
-@section('title', 'Hero Image')
+@section('title', 'Gambar Utama Sekolah')
 
 @section('content')
 <div class="container-fluid">
-        <h2 class="mb-4">
-            <i class="fas fa-image mr-2"></i> Kelola Gambar Header Sekolah
-        </h2>
+    <h2 class="mb-4">
+        <i class="fas fa-image mr-2"></i> Kelola Gambar Utama Sekolah
+    </h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -63,11 +63,18 @@
         const file = event.target.files[0];
 
         if (file) {
+            if (file.size > 2 * 1024 * 1024) { // 2MB limit
+                alert('Ukuran file terlalu besar. Maksimal 2MB.');
+                event.target.value = ''; // reset input file
+                preview.style.display = 'none';
+                return;
+            }
+
             preview.src = URL.createObjectURL(file);
             preview.style.display = 'block';
 
             preview.onload = () => {
-                URL.revokeObjectURL(preview.src); // Hapus URL sementara
+                URL.revokeObjectURL(preview.src);
             }
         }
     }

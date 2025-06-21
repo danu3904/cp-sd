@@ -17,17 +17,21 @@
         </div>
     @endif
     @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <ul class="mb-0 pl-3">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-exclamation-triangle"></i> Validasi Gagal:</strong>
+        <ul class="mb-0 pl-3">
+            @foreach ($errors->getMessages() as $field => $messages)
+                @foreach ($messages as $message)
+                    <li><strong>{{ ucfirst(str_replace('_', ' ', $field)) }}:</strong> {{ $message }}</li>
                 @endforeach
-            </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
+
 
     <div class="row">
         <div class="col-md-7 mb-4">
@@ -128,30 +132,52 @@
                         
                         <div class="form-group">
                             <label for="news_title_field">Judul Berita <span class="text-danger">*</span></label>
-                            <input type="text" name="title" id="news_title_field" class="form-control" required>
+                            <input type="text" name="title" id="news_title_field" class="form-control @error('title') is-invalid @enderror" required>
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="news_description_field">Deskripsi Singkat <span class="text-danger">*</span></label>
-                            <textarea name="description" id="news_description_field" rows="4" class="form-control" required></textarea>
-                            <small class="form-text text-muted">Ringkasan berita untuk tampilan daftar (maks. 150-200 karakter disarankan).</small>
+                            <textarea name="description" id="news_description_field" rows="4" class="form-control @error('description') is-invalid @enderror" required></textarea>
+                            <small class="form-text text-muted">Ringkasan berita untuk tampilan daftar.</small>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="news_image_field">Gambar Berita</label>
                             <div class="custom-file">
-                                <input type="file" name="image" id="news_image_field" class="custom-file-input" accept="image/*">
+                                <input type="file" 
+                                    name="image" 
+                                    id="news_image_field" 
+                                    class="custom-file-input @error('image') is-invalid @enderror" 
+                                    accept="image/*">
                                 <label class="custom-file-label" for="news_image_field" id="news_image_label">Pilih gambar...</label>
+                                <small class="form-text text-muted pl-2">
+                                    Format: JPEG, JPG, PNG. Maksimal 2MB.
+                                </small>
                             </div>
+
+                            @error('image')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+
                             <div class="mt-2" id="news-image-preview-container" style="display:none;">
                                 <img id="news-image-preview" src="" alt="Preview Gambar Berita" class="img-fluid rounded border" style="max-height: 150px;">
                             </div>
                         </div>
 
+
                         <div class="form-group">
                             <label for="news_content_field">Isi Berita / Konten Lengkap <span class="text-danger">*</span></label>
-                            <textarea name="content" id="news_content_field" rows="10" class="form-control" required></textarea>
+                            <textarea name="content" id="news_content_field" rows="10" class="form-control @error('content') is-invalid @enderror" required></textarea>
                             <small class="form-text text-muted">Detail lengkap berita.</small>
+                            @error('content')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="d-flex justify-content-between">
@@ -192,15 +218,10 @@
 
 @push('scripts')
 <script>
-// Vanilla JS untuk Kelola Berita
-// Pastikan Bootstrap 4 JS (bundle atau terpisah dengan Popper.js) sudah dimuat untuk fungsionalitas modal.
-
 const defaultNewsFormAction = "{{ route('editor.news.store') }}";
 const baseNewsUpdateUrl = "{{ url('editor/news') }}"; // URL dasar untuk update, tanpa ID
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('--- DEBUG KELOLA BERITA (Vanilla JS) ---');
-    console.log('EVENT: DOMContentLoaded');
 
     const newsForm = document.getElementById('news-form');
     const formTitleNews = document.getElementById('form-title-news');
@@ -230,17 +251,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     if (allElementsFound) {
-        console.log("DEBUG BERITA: Semua elemen form dan tombol berita ditemukan.");
+        console.log();
     } else {
-        console.error("DEBUG BERITA: TIDAK semua elemen penting form berita ditemukan. Skrip mungkin tidak berfungsi.");
+        console.error();
     }
 
     // Handle tombol Edit Berita
     const editButtonsNews = document.querySelectorAll('.btn-edit-news');
-    console.log(`DEBUG BERITA ATTACH: Ditemukan ${editButtonsNews.length} tombol .btn-edit-news`);
+    console.log(` ${editButtonsNews.length} tombol .btn-edit-news`);
     editButtonsNews.forEach(btn => {
         btn.addEventListener('click', function() {
-            console.log('DEBUG BERITA LOG: Tombol EDIT Berita DIKLIK! ID: ' + this.dataset.id);
+            console.log(this.dataset.id);
             try {
                 const id = this.dataset.id;
                 const title = this.dataset.title;
@@ -266,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     methodInput.name = '_method';
                     methodInput.value = 'PUT'; // Mengirim sebagai PUT
                     newsForm.appendChild(methodInput);
-                    console.log('DEBUG BERITA LOG: Input _method=PUT ditambahkan ke form.');
+                    console.log();
                 }
 
 
@@ -285,14 +306,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 if(btnCancelNews) btnCancelNews.style.display = 'inline-block';
 
                 if(newsForm) newsForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                console.log('DEBUG BERITA LOG: Form Edit Berita berhasil diisi.');
+                console.log('DEBUG: Form Edit Berita dibuka');
             } catch (e) {
-                console.error('DEBUG BERITA LOG: Error di handler tombol edit berita:', e);
+                console.error(e);
             }
         });
     });
-    if(editButtonsNews.length > 0) console.log(`DEBUG BERITA ATTACH: Listener untuk .btn-edit-news SELESAI dipasang.`);
-    else console.warn('DEBUG BERITA ATTACH: TIDAK ADA tombol .btn-edit-news yang ditemukan.');
+    if(editButtonsNews.length > 0) console.log();
+    else console.warn();
 
 
     // Handle tombol Cancel Berita
@@ -314,11 +335,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if(btnSubmitNews) btnSubmitNews.innerHTML = '<i class="fas fa-save"></i> Simpan';
                 btnCancelNews.style.display = 'none';
             } catch (e) {
-                console.error('DEBUG BERITA LOG: Error di handler tombol cancel berita:', e);
+                console.error(e);
             }
         });
     } else {
-        console.warn('DEBUG BERITA: Tombol Cancel Berita (btn-cancel-news) tidak ditemukan.');
+        console.warn();
     }
 
     // Handle tombol Hapus Berita
@@ -335,22 +356,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if(deleteForm) deleteForm.action = action;
                 if(deleteTitle) deleteTitle.innerText = title;
-                // Modal Bootstrap 4 dipicu oleh atribut data-toggle="modal" dan data-target="#deleteNewsModal"
-                // Jika jQuery tersedia dan modal tidak muncul, bisa coba: $('#deleteNewsModal').modal('show');
             } catch (e) {
-                console.error('DEBUG BERITA LOG: Error di handler tombol hapus berita:', e);
+                console.error(e);
             }
         });
     });
-    if(deleteButtonsNews.length > 0) console.log('DEBUG BERITA ATTACH: Listener untuk .btn-delete-news SELESAI dipasang.');
-    else console.warn('DEBUG BERITA ATTACH: TIDAK ADA tombol .btn-delete-news yang ditemukan.');
+    if(deleteButtonsNews.length > 0) console.log();
+    else console.warn();
 
 
     // Preview gambar dan update label untuk Berita
-    console.log('DEBUG BERITA ATTACH: Mencoba memasang listener untuk #news_image_field...');
+    console.log();
     if(newsImageInput) {
         newsImageInput.addEventListener('change', function(event) {
-            console.log('DEBUG BERITA LOG: Event change pada input file gambar berita.');
+            console.log();
             try {
                 const file = event.target.files[0];
                 if (file) {
@@ -367,12 +386,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(newsImageLabel) newsImageLabel.innerText = 'Pilih gambar...';
                 }
             } catch (e) {
-                console.error('DEBUG BERITA LOG: Error di handler input file berita:', e);
+                console.error(e);
             }
         });
-        console.log('DEBUG BERITA ATTACH: Listener untuk #news_image_field (change) BERHASIL dipasang.');
+        console.log();
     } else {
-        console.warn('DEBUG BERITA ATTACH: Input file #news_image_field TIDAK ditemukan.');
+        console.warn();
     }
 });
 </script>

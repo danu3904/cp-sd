@@ -1,20 +1,20 @@
-@extends('layouts.fe') {{-- Menggunakan layout frontend yang sama --}}
+@extends('layouts.fe') 
 
-@section('title', 'Sejarah Sekolah') {{-- Judul untuk tab browser --}}
+@section('title', 'Sejarah Sekolah') 
 
 @section('content')
-    {{-- Konten Utama Sejarah (Gambar Kiri, Teks Kanan) dalam Box --}}
+    {{-- Konten Utama Sejarah dalam Box --}}
     <div class="container-fluid pt-5 pb-3">
         <div class="container">
             <div class="row">
-                <div class="col-12 mb-4"> {{-- Kolom penuh untuk membungkus card utama --}}
-                    <div class="card shadow-sm h-100"> {{-- Card utama untuk konten sejarah --}}
-                        <div class="card-header bg-primary text-white"> {{-- Warna header sesuai tema --}}
-                            <h2 class="h4 mb-0 mt-0">Sejarah Sekolah</h2> {{-- Ubah dari H2 ke H4 untuk konsistensi, dan sesuaikan teks --}}
+                <div class="col-12 mb-4"> 
+                    <div class="card shadow-sm h-100"> 
+                        <div class="card-header bg-primary text-white"> 
+                            <h2 class="h4 mb-0 mt-0">Sejarah Sekolah</h2> 
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4 mb-4"> {{-- Tambahkan mb-4 untuk margin bawah di mobile/tablet --}}
+                                <div class="col-md-4 mb-4">
                                     @if($sejarahContent->gambar)
                                         <img src="{{ asset('storage/' . $sejarahContent->gambar) }}" class="img-fluid rounded shadow-sm" alt="Sejarah Sekolah">
                                     @else
@@ -36,17 +36,17 @@
             </div>
 
             {{-- BAGIAN VIDEO YOUTUBE (KECIL DI KANAN) dalam Box --}}
-            <div class="row mt-5 justify-content-end"> {{-- mt-5 untuk jarak dari konten atas, justify-content-end untuk ke kanan --}}
-                <div class="col-lg-6 col-md-8 col-sm-10"> {{-- Ukuran kolom video --}}
-                    <div class="card shadow-sm h-100"> {{-- Card untuk video --}}
-                        <div class="card-header bg-primary text-white"> {{-- Header video --}}
-                            <h3 class="h4 mb-0 mt-0">Video Tentang Sekolah</h3> {{-- Ubah dari H3 ke H4 untuk konsistensi --}}
+            <div class="row mt-5 justify-content-end"> 
+                <div class="col-lg-6 col-md-8 col-sm-10"> 
+                    <div class="card shadow-sm h-100"> 
+                        <div class="card-header bg-primary text-white"> 
+                            <h3 class="h4 mb-0 mt-0">Video Tentang Sekolah</h3> 
                         </div>
                         <div class="card-body">
-                            <div class="embed-responsive embed-responsive-16by9 rounded"> {{-- Hapus shadow dan rounded dari sini, sudah ada di card --}}
+                            <div class="embed-responsive embed-responsive-16by9 rounded"> 
                                 <iframe
                                     class="embed-responsive-item"
-                                    src="https://www.youtube.com/embed/6SSGIHUsNj4?si=xrAFJsIBxngwDjYe" {{-- PASTIKAN INI URL EMBED YOUTUBE ASLI --}}
+                                    src="https://www.youtube.com/embed/6SSGIHUsNj4?si=xrAFJsIBxngwDjYe" 
                                     title="YouTube video player"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -61,6 +61,6 @@
             </div>
             {{-- AKHIR BAGIAN VIDEO YOUTUBE --}}
 
-        </div> {{-- Penutup div.container --}}
-    </div> {{-- Penutup div.container-fluid pt-5 pb-3 --}}
+        </div> 
+    </div> 
 @endsection

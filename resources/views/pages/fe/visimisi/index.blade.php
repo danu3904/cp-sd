@@ -25,8 +25,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h4 class="mb-3">Visi</h4>
-                                    @if(isset($visiMisi->visi))
-                                        <p class="visi-content-text">{!! nl2br(e($visiMisi->visi)) !!}</p> {{-- REVISI DI SINI: MENAMBAHKAN CLASS visi-content-text --}}
+                                    @if(isset($visiMisi->visi)) 
+                                        <p class="visi-content-text">{!! nl2br(e($visiMisi->visi)) !!}</p>
                                     @else
                                         <p class="text-muted">Konten Visi belum tersedia.</p>
                                     @endif

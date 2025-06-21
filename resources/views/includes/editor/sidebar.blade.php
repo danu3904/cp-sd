@@ -45,7 +45,7 @@
                     <i class="fas fa-tasks mr-2"></i> Kegiatan
                 </a>
                 <a class="collapse-item {{ Request::is('editor/hero-image') ? 'active' : '' }}" href="{{ route('editor.hero-image') }}">
-                    <i class="fas fa-image mr-2"></i> Hero Image
+                    <i class="fas fa-image mr-2"></i> Gambar Utama Sekolah
                 </a>
                 <a class="collapse-item {{ Request::is('editor/principal-section*') ? 'active' : '' }}" href="{{ route('editor.principal-section.index') }}">
                     <i class="fas fa-user-tie mr-2"></i> Kata Sambutan
@@ -85,18 +85,15 @@
         </div>
     </li>
 
-    <hr class="sidebar-divider d-none d-md-block">
 
 
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <li class="nav-item {{ Request::is('editor/contact') ? 'active' : '' }}">
+    {{-- <li class="nav-item {{ Request::is('editor/contact') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('editor.contact') }}">
             <i class="fas fa-address-book"></i>
             <span>Contact</span></a>
     </li>
 
-    <hr class="sidebar-divider d-none d-md-block">
+    <hr class="sidebar-divider d-none d-md-block"> --}}
 
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

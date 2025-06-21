@@ -16,17 +16,20 @@
             </button>
         </div>
     @endif
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <ul class="mb-0 pl-3">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
+     @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-exclamation-triangle"></i> Validasi Gagal:</strong>
+        <ul class="mb-0 pl-3">
+            @foreach ($errors->getMessages() as $field => $messages)
+                @foreach ($messages as $message)
+                    <li><strong>{{ ucfirst(str_replace('_', ' ', $field)) }}:</strong> {{ $message }}</li>
                 @endforeach
-            </ul>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
 
     <div class="row">
@@ -123,25 +126,37 @@
                     <form id="activity-form" action="{{ route('editor.activities.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="activity_id" id="activity_id_field">
-                        {{-- _method untuk update akan ditambahkan oleh JavaScript --}}
                         
                         <div class="form-group">
                             <label for="activity_title_field">Judul Kegiatan <span class="text-danger">*</span></label>
                             <input type="text" name="title" id="activity_title_field" class="form-control" required>
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="activity_description_field">Deskripsi Singkat <span class="text-danger">*</span></label>
                             <textarea name="description" id="activity_description_field" rows="4" class="form-control" required></textarea>
                             <small class="form-text text-muted">Deskripsi singkat untuk kegiatan (maks. 150-200 karakter disarankan).</small>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="activity_image_field">Gambar Kegiatan</label>
                             <div class="custom-file">
-                                <input type="file" name="image" id="activity_image_field" class="custom-file-input" accept="image/*">
+                                <input type="file" name="image" id="activity_image_field" class="custom-file-input @error('image') is-invalid @enderror" accept="image/*">
                                 <label class="custom-file-label" for="activity_image_field" id="activity_image_label">Pilih gambar...</label>
+                                <small class="form-text text-muted pl-2">
+                                    Format: JPEG, JPG, PNG. Maksimal 2MB.
+                                </small>
                             </div>
+                            @error('image')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                            {{-- Preview gambar --}}
                             <div class="mt-2" id="activity-image-preview-container" style="display:none;">
                                 <img id="activity-image-preview" src="" alt="Preview Gambar Kegiatan" class="img-fluid rounded border" style="max-height: 150px;">
                             </div>
@@ -151,6 +166,9 @@
                             <label for="activity_content_field">Konten Lengkap (Opsional)</label>
                             <textarea name="content" id="activity_content_field" rows="10" class="form-control"></textarea>
                             <small class="form-text text-muted">Detail lengkap kegiatan jika diperlukan.</small>
+                                @error('content')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="d-flex justify-content-between">
